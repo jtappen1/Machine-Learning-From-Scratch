@@ -68,9 +68,9 @@ class LogisticRegression:
         # These are the internal values of the model that we will be changing.
         # We set # of weights equal to the # of features because we want each individual input feature 
         # to be tuned and adjusted by model training.
-        self.weights = np.zeros(n_features)
+        self._weights = np.zeros(n_features)
 
-        self.bias = 0
+        self._bias = 0
 
         # We will run this for one whole iteration of processing the data. This is also known as an epoch, 
         # so we will be running for n_iters epochs
@@ -95,7 +95,16 @@ class LogisticRegression:
             dw = (1 / n_samples) * np.dot(X.T, dz)
             db = (1 / n_samples) * np.sum(dz)
             # update parameters
-            self.weights -= self.lr * dw
-            self.bias -= self.lr * db
+            self._weights -= self._lr * dw
+            self._bias -= self._lr * db
+
+    def predict(self, X):
+        threshold = 0.5
+        y_hat = np.dot(X, self._weights) + self._bias
+        y_predicted = self.sigmoid(y_hat)
+        y_predicted_cls = [1 if i > threshold else 0 for i in y_predicted]
+        
+        return np.array(y_predicted_cls)
+
 
 
