@@ -1,12 +1,12 @@
 import numpy as np
 
 class LogisticRegression:
-    def __init__(self, lr = 0.001, n_iter = 1000):
+    def __init__(self, lr = 0.001, epochs = 1000):
         self._lr = lr
-        self._n_iters = n_iter
+        self._epochs = epochs
         self._weights = None
         self._bias = None
-        self.losses = []
+        self._losses = []
 
 
     def sigmoid(self, x: float) -> float: 
@@ -72,36 +72,45 @@ class LogisticRegression:
 
         self._bias = 0
 
-        # We will run this for one whole iteration of processing the data. This is also known as an epoch, 
-        # so we will be running for n_iters epochs
         # This loop comprises gradient descent. 
-        for _ in range(self._n_iters):
+        for _ in range(self._epochs):
             # First we predict the output values by running feed forward on X
             # We run the feed forward on the entirety of the input data
 
-            pred_output = self.feed_forward(X) # returns a vector of predicted probabilities
+            # The length of the feed forward loop is the lengths of the number of samples
+            pred_output = self.feed_forward(X) # returns a vector of predicted probabilities.
 
-            # We get the predicted output, and computes the loss based off the true and predicted values 
-            self.losses.append(self.compute_bce_loss(y,pred_output))
+            # We get the predicted output, and computes the loss based off the true and predicted values.
+            # Returns a single value for the loss
+            self._losses.append(self.compute_bce_loss(y,pred_output))
             
            # We next need to update the weights and biases, to help us find the 
-           # correct direction to proceeed in each dimension
+           # correct direction to proceed in each dimension
 
            # Backpropagation:
            # We want to compute gradients of the loss w.r.t. weights and bias
-            dz = pred_output - y # Loss w.r.t Output
+            dz = pred_output - y # dz is the array of the 1s and 0s - the true values
 
             # compute gradients
             dw = (1 / n_samples) * np.dot(X.T, dz)
+            # we compute the average of the error of all predictions
+            # the sum of all errors, the pred output - the actual values.  
             db = (1 / n_samples) * np.sum(dz)
             # update parameters
+            # we follow the update rule.  So we update the weights with the learning rate * 
+            # the derivative of the weights or bias
+            # we subtract and are trying to minimize the loss 
             self._weights -= self._lr * dw
             self._bias -= self._lr * db
 
     def predict(self, X):
+        # We start with the same array of images with 30 features
         threshold = 0.5
+        # We go compute the dot product of each sample with the weights of the model, and then add the bias to each one.
         y_hat = np.dot(X, self._weights) + self._bias
+        # Apply the sigmoid funciton to each sample, forcing it between 0 and 1
         y_predicted = self.sigmoid(y_hat)
+        # If greater than the threshold, it is a 1 else 0
         y_predicted_cls = [1 if i > threshold else 0 for i in y_predicted]
         
         return np.array(y_predicted_cls)
