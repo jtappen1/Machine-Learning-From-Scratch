@@ -8,10 +8,13 @@ Develop and increase understanding surrounding Machine learning models, specific
 | Model Type        | Model                         | Links to Models     |  
 | ----------------- | ----------------------------- | --------------------|
 | Regression        | Linear Regression             |                     |
-| Classification    | Logistic Regression           | [Logistic Regression Model](https://github.com/jtappen1/Machine-Learning-From-Scratch/blob/8eebcd58bf9d7cf023673ae6a7a8e4bc9f7e5bc0/models/logistic-regression/logistic_regression.py) |
+| Classification    | Logistic Regression           | [Logistic Regression Model](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/8eebcd58bf9d7cf023673ae6a7a8e4bc9f7e5bc0/models/logistic-regression) |
 | Lazy Learning     | KNN                           |                     |
 | Tree-based        | Decision Tree → Random Forest |                     |
 | Probabilistic     | Naive Bayes                   |                     |
 | Margin-based      | SVM                           |                     |
 | Ensemble Learning | Gradient Boosting / XGBoost   |                     |
-| Deep Learning     | MLP → CNN → RNN → Transformer |                     |
+| Deep Learning     | MLP → RNN → Transformer |                     |
+| Deep Learning     | CNN-PyTorch (Simple)          | [Simple CNN Model](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/cnn-pytorch)  |
+
+
