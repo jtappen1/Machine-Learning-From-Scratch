@@ -12,7 +12,7 @@ Develop and increase understanding surrounding Machine learning models, specific
 | Lazy Learning     | KNN                           |                     |
 | Tree-based        | Decision Tree → Random Forest |                     |
 | Probabilistic     | Naive Bayes                   |                     |
-| Margin-based      | SVM                           |                     |
+| Margin-based      | SVM                           | [Support Vector Machine](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/svm)                    |
 | Ensemble Learning | Gradient Boosting / XGBoost   |                     |
 | Deep Learning     | MLP → RNN → Transformer |                     |
 | Deep Learning     | CNN-PyTorch (Simple)          | [Simple CNN Model](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/cnn-pytorch)  |
