@@ -3,49 +3,55 @@ import numpy as np
 
 
 class MLP:
-    def __init__(self, lr = 0.001, batch_size = 64, num_epochs=100):
+    def __init__(self, lr = 0.001, batch_size = 64, num_epochs=25):
         self._lr = lr
         self._batch_size = batch_size
         self._num_epochs = num_epochs
 
+        # Initialize the weights
         self._weights_1 = None
         self._bias_1 = None
-
         self._weights_2 = None
         self._bias_2 = None
 
     def relu(self, x):
-        # Takes each element in the list x and takes the max between it and 0.
+        # Implementation of the ReLU activation function
         return np.maximum(0, x)
     
     def softmax(self, x):
-        # TODO: Go back and understand this
+        # Implementation of the softmax activation function
         exp_x = np.exp(x - np.max(x, axis=1, keepdims=True))
         return exp_x / np.sum(exp_x, axis=1, keepdims=True)
 
     def cross_entropy(self, y_pred, y_true):
+        # Implementation of Cross-Entropy Loss
         n_samples = y_pred.shape[0]
         logp = -np.log(y_pred[range(n_samples), y_true])
         loss = np.sum(logp) / n_samples
         return loss
     
     def forward(self, X):
+        """
+        Forward pass through the model.  Computes the linear transformations and non-linear activations of the layers.
+        """
         # Shape of X is (batch_size, input_size)
-        # Forward pass through the first hidden layer
-        # All of the Zs are linear transformations
-        z1 = X @ self._weights_1 + self._bias_1
-        activation_1 = self.relu(z1)
+        # All of the Zs are Linear Transformation
+        # All of the activations are Non-Linear Actications
+        z_1 = X @ self._weights_1 + self._bias_1
+        a_1 = self.relu(z_1)
 
-        z2= activation_1 @ self._weights_2 + self._bias_2
-        activation_2 = self.relu(z2)
+        z_2= a_1 @ self._weights_2 + self._bias_2
+        a_2 = self.relu(z_2)
 
-        z3 = activation_2 @ self._weights_out + self._bias_out
-        activation_3 = self.softmax(z3)
+        z_3 = a_2 @ self._weights_out + self._bias_out
+        a_3 = self.softmax(z_3)
 
-         
-        return z1, activation_1, z2, activation_2, z3, activation_3
+        return z_1, a_1, z_2, a_2, z_3, a_3
 
     def backwards(self, X, y, z1, a1, z2, a2, z3, out):
+        """
+        Back-propagation using the chain-rule back through the model.
+        """
         # we compute backprop by doing the chain rule back through to compute the gradients
         # Chain rule y = f(u),  u = g(x)  == (y = f(g(x)))
         # dy/dx = dy/du * du/dx
@@ -85,7 +91,10 @@ class MLP:
         self._bias_1 -= self._lr * db1
 
 
-    def fit(self, X, y):    
+    def fit(self, X, y):
+        """
+        Fit function runs the data through the model.
+        """
         num_samples, num_features = np.shape(X)
         hidden_layer_1 = 256
         hidden_layer_2 = 128
@@ -105,12 +114,29 @@ class MLP:
         self._bias_out = np.zeros((output_size,))
 
         for epoch in range(self._num_epochs):
-            # We first compute the 
-            z1, a1, z2, a2, z3, out = self.forward(X)
-            loss = self.cross_entropy(out, y)
-            self.backwards(X, y, z1, a1, z2, a2, z3, out)
+            # Shuffle the data
+            indices = np.arange(num_samples)
+            np.random.shuffle(indices)
+            X = X[indices]
+            y = y[indices]
 
-            print(f"Finished Epoch: {epoch} with loss of {loss:.4f}")
+            epoch_loss = 0
+            num_batches = num_samples // self._batch_size
+            # Seperate the data into batches and run the forward and backward pass per batch
+            for i in range(0, num_samples, self._batch_size):
+                X_batch = X[i:i + self._batch_size]
+                y_batch = y[i:i + self._batch_size]
+
+                # Do the forward pass and backpropagation
+                z1, a1, z2, a2, z3, out = self.forward(X_batch)
+                loss = self.cross_entropy(out, y_batch)
+                self.backwards(X_batch, y_batch, z1, a1, z2, a2, z3, out)
+
+                epoch_loss += loss
+
+            # Calculate the average loss to get a representative sample of how the model did
+            avg_loss = epoch_loss / num_batches
+            print(f"Finished Epoch {epoch + 1} with average loss: {avg_loss:.4f}")
 
 
 

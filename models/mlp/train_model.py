@@ -15,7 +15,7 @@ y_train, y_test = y[:60000], y[60000:]
 mlp = MLP()
 mlp.fit(X_train, y_train)
 
-y_pred_probs = mlp.forward(X_test)
+_, _, _, _, _, y_pred_probs = mlp.forward(X_test)
 y_pred = np.argmax(y_pred_probs, axis=1)
 accuracy = np.mean(y_pred == y_test)
 print(f"Test accuracy: {accuracy:.4f}")
