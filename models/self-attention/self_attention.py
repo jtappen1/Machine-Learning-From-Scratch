@@ -25,12 +25,19 @@ K = x @ W_k
 V =  x @ W_v
 
 d_k = K.shape[1]
+
+# We take the multiplication of Q and the transpose of k
 attention_scores = Q @ K.T  # shape 3 x 3
 
+# We then scale the scores by the dimension of k
 scaled_scores = attention_scores / np.sqrt(d_k)
 
+# Run the raw logits through the softmaxs to get the attention probabilities
 attention_weights = softmax(scaled_scores)
 
+# Get the output from the attention layer by taking those probabilities and 
+# multipling by V which are the real values to get the actual output.
+# Doing this adds context for each individual token from every other token.
 output = attention_weights @ V
 
 print("Q:\n", Q)
