@@ -25,9 +25,10 @@ class MLP:
 
     def cross_entropy(self, y_pred, y_true):
         # Implementation of Cross-Entropy Loss
-        n_samples = y_pred.shape[0]
-        logp = -np.log(y_pred[range(n_samples), y_true])
-        loss = np.sum(logp) / n_samples
+        # y-true shape 1, 64
+        n_samples = y_pred.shape[0]                         # batch_size, num_classes
+        logp = -np.log(y_pred[range(n_samples), y_true])    # Log takes the numbers from 0 to 1, and stretches it from 0 to -infinity
+        loss = np.sum(logp) / n_samples                     # Computes a single value for a entire batch
         return loss
     
     def forward(self, X):
@@ -95,7 +96,7 @@ class MLP:
         """
         Fit function runs the data through the model.
         """
-        num_samples, num_features = np.shape(X)
+        num_samples, num_features = np.shape(X)     # [_, 784]
         hidden_layer_1 = 256
         hidden_layer_2 = 128
         output_size = 10
@@ -125,11 +126,11 @@ class MLP:
             # Seperate the data into batches and run the forward and backward pass per batch
             for i in range(0, num_samples, self._batch_size):
                 X_batch = X[i:i + self._batch_size]
-                y_batch = y[i:i + self._batch_size]
+                y_batch = y[i:i + self._batch_size]     # shape 1, batch_size
 
                 # Do the forward pass and backpropagation
-                z1, a1, z2, a2, z3, out = self.forward(X_batch)
-                loss = self.cross_entropy(out, y_batch)
+                z1, a1, z2, a2, z3, out = self.forward(X_batch) 
+                loss = self.cross_entropy(out, y_batch)     # out: [batch_size, num_classes]
                 self.backwards(X_batch, y_batch, z1, a1, z2, a2, z3, out)
 
                 epoch_loss += loss

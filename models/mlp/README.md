@@ -22,3 +22,17 @@
 - The Model has shape Input [784] - > Hidden [256] -> Hidden [128] - > Output [10]
 - The input vector X has shape (batch_size, input_size)
 - 1. Determine the different sizes and initialize 
+
+
+## Notes
+- You use the backpropagation to compute the gradients and gradient descent to optimize the loss function to find the weights.
+- Pointwise means it is applied to every element in the matrix
+- Relu means for every element in the matrix, you take the max between 0 and the element
+- At the end of my forward pass, we have computed the prediction of the model
+- For Softmax: 
+    - All values are between 0 and 1
+    - All values equal up to 1
+    - Larger values are amplified
+    - Ends up being a probability vector of the different classes
+
+- Softmax is at the end of the MLP because it converts the logits to a probability vector over all of the classes
