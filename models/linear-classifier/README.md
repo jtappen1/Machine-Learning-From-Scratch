@@ -5,7 +5,7 @@ The goal of this excercise is to learn and understand the math around gradient d
 
 ## Steps:
 ### Step 1: 
-Softmax:  $\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}$  
+Softmax: $\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}$  
 
 Cross Entropy Loss: $\mathcal{L}_{\text{CE}} = -\sum_{i=1}^{K} y_i \log(\hat{y}_i)$  
 
@@ -39,11 +39,11 @@ $\frac{\partial L}{\partial \hat{\vec{y}}} =  -\frac{\vec{y}}{\hat{\vec{y}}}$
 ### Step 4:
 Compute the derivative of $\hat{y}$ w.r.t $z$  
 $\hat{y}$ is the output from the softmax, so we are taking the derivative of the softmax with respect to $z$  
-$\frac{\partial \hat{y}}{\partial z} = $
+The softmax derivative is given by: $\frac{\partial \hat{y}_i}{\partial z_j} = \hat{y}_i (1 - \hat{y}_i)$ if $i = j$, and $-\hat{y}_i \hat{y}_j$ if $i \ne j$.
 
 ### Step 5:
 Compute the derivative of $z$ w.r.t $w$  
-we know that $z = X \cdot W + b$, but when we take the derivative the $b$ is a constant and goes away. IS THIS TRUE?
+we know that $z = X \cdot W + b$, but when we take the derivative the $b$ is a constant and goes away.
 $\frac{\partial z}{\partial w} = x^T$
 
 ### Step 6:
