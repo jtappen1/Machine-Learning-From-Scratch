@@ -7,7 +7,7 @@ Develop and increase understanding surrounding Machine learning models, specific
 
 | Model Type        | Model                         | Links to Models     |  
 | ----------------- | ----------------------------- | --------------------|
-| Classification    | Linear Classifier             |                     |
+| Classification    | Linear Classifier             | [Linear Classifier](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/linear-classifier)           |
 | Classification    | Logistic Regression           | [Logistic Regression Model](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/logistic-regression) |
 | Margin-based      | SVM                           | [Support Vector Machine](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/svm)                    |
 | Deep Learning     | MLP                           | [Multi-Layer Perceptron](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/mlp)                    |
