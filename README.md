@@ -14,6 +14,6 @@ Develop and increase understanding surrounding Machine learning models, specific
 | Attention         | Self-Attention                | [Self-Attention](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/self-attention)     |
 | Attention         | Multi-Headed Attention        | [Multi-Head Attention](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/multi-head-attention)     |
 | Deep Learning     | CNN-PyTorch (Simple)          | [Simple CNN Model](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/cnn-pytorch)  |
-| Deep Learning     | Transformer                   |  |
-
+| Deep Learning     | Transformer                   | [Transformer (Py-Torch)](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/transformer)            |
+| Deep Learning     | Vision Transformer            | [ViT (Py-Torch)](https://github.com/jtappen1/Machine-Learning-From-Scratch/tree/main/models/ViT)                            |
 
